@@ -1,6 +1,6 @@
 allow_embedding: false
-name: Minimal Theme 1
-package_name: Minimal_Theme_1
+name: List Cleaner
+package_name: List_Cleaner
 runtime_options:
   client_version: '3'
   server_spec: {base: python310-minimal}
