@@ -183,7 +183,8 @@ def _format_phone_columns(dataframe):
         and "type" not in normalize_column_name(column)
     ]
     for column in phone_columns:
-        dataframe.loc[:, column] = dataframe[column].apply(_format_phone_value)
+        formatted_values = dataframe[column].apply(_format_phone_value)
+        dataframe[column] = formatted_values
     return dataframe
 
 
@@ -194,6 +195,7 @@ def _apply_mobile_filter(dataframe):
         if normalize_column_name(column) in ("phone", "phonenumber")
     ]
     for column in generic_phone_columns:
+        dataframe[column] = dataframe[column].astype("object")
         dataframe.loc[:, column] = pd.NA
 
     for phone_column, type_column in _phone_type_pairs(dataframe.columns):
@@ -201,6 +203,8 @@ def _apply_mobile_filter(dataframe):
             ["mobile", "wireless"]
         )
         keep_phone = dataframe[type_column].notna() & is_mobile_or_wireless
+        dataframe[phone_column] = dataframe[phone_column].astype("object")
+        dataframe[type_column] = dataframe[type_column].astype("object")
         dataframe.loc[~keep_phone, phone_column] = pd.NA
         dataframe.loc[~keep_phone, type_column] = pd.NA
 
@@ -219,7 +223,7 @@ def _read_uploaded_file(uploaded_file):
     if filename.lower().endswith(".xlsx"):
         return filename, pd.read_excel(raw_file, engine="openpyxl")
     if filename.lower().endswith(".csv"):
-        return filename, pd.read_csv(raw_file)
+        return filename, pd.read_csv(raw_file, low_memory=False)
     raise ValueError("only .csv and .xlsx files are supported")
 
 
