@@ -1,13 +1,40 @@
 <anvil-form layout="List_Cleaner.Layouts.BaseLayout">
-  <anvil-block slot="actions"></anvil-block>
+  <anvil-block slot="actions">
+    <anvil-component type="Button" name="clear_button" prop:role="secondary-button" prop:text="Clear"></anvil-component>
+  </anvil-block>
   <anvil-block slot="content">
-    <anvil-component type="ColumnPanel" name="column_panel_1" prop:role="card" designer:placeholder="Add components here">
-      <anvil-component type="ColumnPanel" name="card_1" prop:role="card" container:grid_position="ANNDUJ,ILKLVV">
-        <anvil-component type="Label" name="label_2" prop:bold="false" prop:text="Drop your files here:" container:grid_position="OAAASZ,OPRUCK"></anvil-component>
-      </anvil-component>
-      <anvil-component type="FileLoader" name="file_loader_1"></anvil-component>
-    </anvil-component>
-    <anvil-component type="Button" name="button_1_click" prop:text="Receive files for verification" prop:bold="false"></anvil-component>
+    <section class="cleaner-intro">
+      <p class="cleaner-eyebrow">Property list cleanup</p>
+      <h2>Run either cleanup step</h2>
+      <p class="cleaner-lede">Upload your CSV or XLSX files once, then download either stage independently. The original uploads stay selected so you can run both buttons.</p>
+    </section>
+
+    <section class="upload-card">
+      <div class="upload-card-heading">
+        <h3>1. Choose your files</h3>
+        <p>Multiple files are supported. Files are processed for the selected download and are not stored.</p>
+      </div>
+      <anvil-component type="FileLoader" name="file_loader_1" prop:text="Choose CSV or XLSX files" prop:show_state="true"></anvil-component>
+      <anvil-component type="Label" name="selection_label" prop:role="status" prop:text="No files selected"></anvil-component>
+    </section>
+
+    <section class="process-card">
+      <div>
+        <h3>2. Download selected columns</h3>
+        <p>Removes excluded columns, orders the requested fields, and downloads one processed CSV per input file.</p>
+      </div>
+      <anvil-component type="Button" name="columns_button" prop:text="Download step 1" prop:icon="fa:download"></anvil-component>
+    </section>
+
+    <section class="process-card">
+      <div>
+        <h3>3. Download Mobile/Wireless phones</h3>
+        <p>Filters the phone columns to Mobile or Wireless, removes phone type columns, and downloads one CSV per input file.</p>
+      </div>
+      <anvil-component type="Button" name="phones_button" prop:text="Download step 2" prop:icon="fa:download"></anvil-component>
+    </section>
+
+    <anvil-component type="Label" name="status_label" prop:role="status" prop:text="Ready. Choose a download step after uploading."></anvil-component>
   </anvil-block>
   <anvil-block slot="title">
     <anvil-component type="Label" name="label_1" prop:role="h1" prop:text="List Cleaner"></anvil-component>

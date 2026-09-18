@@ -16,6 +16,8 @@ roles:
 - components: [Button]
   name: secondary-button
 - components: [Label]
+  name: status
+- components: [Label]
   name: eyebrow
 - components: [Label]
   name: h1
